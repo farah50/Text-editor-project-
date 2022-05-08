@@ -15,12 +15,19 @@ using namespace std;
 
 int menuDisplay();
 void loadFile(vector<string>& lines,fstream& myFile );
-void saveFile();
+void loadFile2(vector<string>& lines2, fstream& myFile2);
 void mergeFile();
 void countChar();
+void countWords();
+void searchForWord();
+
 int choice;
 fstream myFile;
+fstream myFile2;
 vector<string> lines;
+vector<string> lines2;
+char text[100] , text2[100];
+
 
 int main(){
 
@@ -33,8 +40,13 @@ int main(){
             case 1 :
                 break;
             case 6 :
+                loadFile(lines, myFile);
+                loadFile2(lines2, myFile2);
+                mergeFile();
                 break;
             case 7 :
+                loadFile(lines, myFile);
+                countWords();
                 break;
             case 8 :
                 loadFile(lines, myFile);
@@ -45,28 +57,15 @@ int main(){
                 cout << "The number of lines = " << lines.size()  << endl;
                 break;
             case 10 :
+                loadFile(lines, myFile);
+                searchForWord();
+                myFile.close();
                 break;
+            case 15:
+                myFile.close();
             case 16 :
                 x = false;
         }
-    }
-}
-void loadFile(vector<string>& lines,fstream& myFile){
-    char name[100] , text[100];
-    cout << "Please enter the file name : \n";
-    cin >> name;
-    myFile.open(name , fstream::in | fstream::out);
-
-    if (myFile){
-        cout << "The file has opened successfully \n";
-        while (!myFile.eof()){
-            myFile.getline(text , 100 , '\n');
-            lines.push_back(string(text));
-        }
-    }
-    else {
-        cout << "This file couldn't open.\n "
-                "Another file will be created when saving \n";
     }
 }
 int menuDisplay() {
@@ -91,6 +90,43 @@ int menuDisplay() {
     cin >> choice;
     return choice;
 }
+void loadFile(vector<string>& lines,fstream& myFile){
+    char name[100] , text[100];
+    cout << "Please enter the file name : \n";
+    cin >> name;
+    myFile.open(name , fstream::in | fstream::out);
+
+    if (myFile){
+        cout << "The file has opened successfully \n";
+        while (!myFile.eof()){
+            myFile.getline(text , 100 , '\n');
+            lines.push_back(string(text));
+        }
+    }
+    else {
+        cout << "This file couldn't open.\n "
+                "Another file will be created when saving \n";
+    }
+}
+void loadFile2(vector<string>& lines2,fstream& myFile2){
+    char name2[100] , text2[100];
+    cout << "Please enter the name of the other file : \n";
+    cin >> name2;
+    myFile2.open(name2 , fstream::in | fstream::out);
+
+    if (myFile2){
+        cout << "The file has opened successfully \n";
+        while (!myFile2.eof()){
+            myFile2.getline(text2 , 100 , '\n');
+            lines2.push_back(string(text2));
+        }
+    }
+    else {
+        cout << "This file couldn't open.\n "
+                "Another file will be created when saving \n";
+    }
+}
+
 void countChar(){
     long counter = 0 ;
     for(int i = 0 ; i < lines.size(); i ++){
@@ -99,4 +135,39 @@ void countChar(){
         }
     }
     cout << "The number of characters in the file = " << counter << endl;
+}
+void countWords(){
+    long counter = 0 ;
+    for(int i = 0 ; i < lines.size(); i ++){
+        for(int j = 0 ; j < lines[i].size() ; j++){
+            if(lines[i][j] == ' '){
+                counter ++;
+            }
+        }
+        counter ++;
+    }
+    cout << "The number of words in the file = " << counter  << endl;
+}
+void mergeFile(){
+    while(!myFile2.eof()) {
+        myFile2 >> text2;
+        myFile << text2;
+    }
+    myFile.close();
+    myFile2.close();
+        cout << "The files merged successfully.\n" ;
+}
+void searchForWord(){
+
+    char word[100] ;
+    cout << "Please enter the word you want to search for. \n";
+    cin >> word;
+    while (true){
+        if(string(text).find( word) != 0){
+            cout << "Word was found in the file. \n";
+            break;
+        }
+        else
+            cout << "Word was not found in the file. \n";
+    }
 }
