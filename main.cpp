@@ -20,12 +20,16 @@ void mergeFile();
 void countChar();
 void countWords();
 void searchForWord();
+void TurnToUpper();
+void TurnToLower();
+
 
 int choice;
 fstream myFile;
 fstream myFile2;
 vector<string> lines;
 vector<string> lines2;
+vector<char> inside;
 char text[100] , text2[100];
 
 
@@ -60,6 +64,14 @@ int main(){
                 loadFile(lines, myFile);
                 searchForWord();
                 myFile.close();
+                break;
+            case 12:
+                TurnToUpper();
+                myFile.close();
+                break;
+            case 13:
+                TurnToLower();
+                myFile.close(); 
                 break;
             case 15:
                 myFile.close();
@@ -171,3 +183,54 @@ void searchForWord(){
             cout << "Word was not found in the file. \n";
     }
 }
+
+void TurnToUpper(){
+
+    char name[100], text;
+
+    fstream myFile;
+    vector<char> inside;
+    
+    cout << "Enter the file name : ";
+    cin >> name;
+    myFile.open(name,ios::in);
+    
+    while(!myFile.eof() && !myFile.fail()){
+        myFile.get(text);
+        inside.push_back(toupper(text));
+    }
+    myFile.close();
+    myFile.open(name,ios::out);
+    for(int i=0 ; i<inside.size()-1 ; ++i){
+        myFile.put(inside[i]);
+    }
+    cout << "The file turned to uppercase successfully\n";
+    
+}
+
+
+void TurnToLower(){
+
+    char name[100], text;
+
+    fstream myFile;
+    vector<char> inside;
+    
+    cout << "Enter the file name : ";
+    cin >> name;
+    myFile.open(name,ios::in);
+    
+    while(!myFile.eof() && !myFile.fail()){
+        myFile.get(text);
+        inside.push_back(tolower(text));
+    }
+    myFile.close();
+    myFile.open(name,ios::out);
+    for(int i=0 ; i<inside.size()-1 ; ++i){
+        myFile.put(inside[i]);
+    }
+    cout << "The file turned to lowercase successfully\n";
+    
+}
+
+
