@@ -22,15 +22,21 @@ void countWords();
 void searchForWord();
 void TurnToUpper();
 void TurnToLower();
+void FreqWord();
+void firstUpper();
+
 
 
 int choice;
 fstream myFile;
 fstream myFile2;
+fstream targetFile; 
 vector<string> lines;
 vector<string> lines2;
+vector<string> wordvector;
 vector<char> inside;
 char text[100] , text2[100], name[100], text0;
+string readWord, userWord, targetFileName;
 
 
 int main(){
@@ -65,13 +71,17 @@ int main(){
                 searchForWord();
                 myFile.close();
                 break;
+            case 11:
+                FreqWord();   
+                break;
             case 12:
                 TurnToUpper();
-                myFile.close();
                 break;
             case 13:
                 TurnToLower();
-                myFile.close(); 
+                break;
+            case 14:
+                firstUpper();
                 break;
             case 15:
                 myFile.close();
@@ -189,19 +199,30 @@ void TurnToUpper(){
    
     cout << "Please enter the file name : ";
     cin >> name;
+
+    cout << "Please enter the target file name: ";
+    cin >> targetFileName;
+
     myFile.open(name,ios::in);
-    
-    while(!myFile.eof() && !myFile.fail()){
-        myFile.get(text0);
-        inside.push_back(toupper(text0));
+    targetFile.open(targetFileName, ios::out);
+
+    if(myFile){
+        while(myFile.get(text0)){
+            
+            inside.push_back(toupper(text0));
+        
+        for(int i=0 ; i<inside.size()-1 ; ++i){
+            targetFile.put(inside[i]);
+        }
     }
-    myFile.close();
-    myFile.open(name,ios::out);
-    for(int i=0 ; i<inside.size()-1 ; ++i){
-        myFile.put(inside[i]);
+        myFile.close();
+        targetFile.close();
+        cout << "The file turned to uppercase successfully\n";
     }
-    cout << "The file turned to uppercase successfully\n";
-    
+    else{
+        cout << " Can't open file.";
+    }
+
 }
 
 
@@ -209,19 +230,100 @@ void TurnToLower(){
 
     cout << "Please enter the file name : ";
     cin >> name;
+
+    cout << "Please enter the target file name: ";
+    cin >> targetFileName;
+
     myFile.open(name,ios::in);
-    
-    while(!myFile.eof() && !myFile.fail()){
-        myFile.get(text0);
-        inside.push_back(tolower(text0));
+    targetFile.open(targetFileName, ios::out);
+
+    if(myFile){
+        while(myFile.get(text0)){
+            
+            inside.push_back(toupper(text0));
+        
+        for(int i=0 ; i<inside.size()-1 ; ++i){
+            targetFile.put(inside[i]);
+            }
+       }
+        myFile.close();
+        targetFile.close();
+        cout << "The file turned to uppercase successfully\n";
     }
-    myFile.close();
-    myFile.open(name,ios::out);
-    for(int i=0 ; i<inside.size()-1 ; ++i){
-        myFile.put(inside[i]);
+    else{
+        cout << " Can't open file.";
     }
-    cout << "The file turned to lowercase successfully\n";
-    
+
 }
 
+void FreqWord(){
+  
+  cout << "Please enter the file name : ";
+  cin >> name; 
+
+  myFile.open(name,ios::in);
+  
+while(myFile >> readWord){    
+
+   wordvector.push_back(readWord);
+}
+
+while(true){
+
+   int counter = 0;
+
+   cout <<"Please enter the word you want to check occurrences of: ";
+   cin >> userWord;
+
+   for(int i = 0; i < wordvector.size(); i++){
+
+    if( userWord == wordvector[i]){
+        counter++;
+    }
+        
+   }
+   cout <<"The word " << userWord << " was found: " << counter << " times" << endl;
+   break; 
+}
+}
+
+void firstUpper(){
+
+    bool newSentence = true;
+
+    cout << "Please enter the file name: " ;
+    cin >> name;
+
+    cout << "Please enter the target file name: " ;
+    cin >> targetFileName;   
+
+    targetFile.open(targetFileName, ios::out);  
+    myFile.open(name, ios::in);
+
+    if (myFile) {
+        while (myFile.get(text0)) {
+            if (text0 == ' ') {        // To check if there is a distance or not
+                newSentence = true;
+            }
+            if (isalpha(text0)) { 
+                if (newSentence) {
+                    text0 = toupper(text0);
+                        newSentence = false;   //To make the other letter of the word lowercase
+                }
+                else {
+                    text0= tolower(text0);
+                }
+            }
+            targetFile.put(text0);  
+        }
+        myFile.close();
+        targetFile.close();   
+    }
+    else {
+        cout << "Cannot open file(s)." << endl;
+}
+
+    cout << "\nFile conversion successfully." << endl;
+
+}
 
