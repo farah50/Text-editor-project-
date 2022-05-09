@@ -181,10 +181,20 @@ void mergeFile(){
 }
 void searchForWord(){
 
-    char word[100] ;
+    string word ;
     cout << "Please enter the word you want to search for. \n";
     cin >> word;
-    while (true){
+    int i = 0;
+    while(i < word.size()){
+        word[i] = tolower(word[i]);
+                i ++;
+    }
+    i = 0;
+    while (i < string( text).size()) {
+        text[i] = tolower(text[i]);
+        i++;
+    }
+    while(true){
         if(string(text).find( word) != 0){
             cout << "Word was found in the file. \n";
             break;
@@ -192,6 +202,7 @@ void searchForWord(){
         else
             cout << "Word was not found in the file. \n";
     }
+
 }
 
 void TurnToUpper(){
