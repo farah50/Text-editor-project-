@@ -30,7 +30,7 @@ fstream myFile2;
 vector<string> lines;
 vector<string> lines2;
 vector<char> inside;
-char text[100] , text2[100];
+char text[100] , text2[100], name[100], text0;
 
 
 int main(){
@@ -186,18 +186,14 @@ void searchForWord(){
 
 void TurnToUpper(){
 
-    char name[100], text;
-
-    fstream myFile;
-    vector<char> inside;
-    
-    cout << "Enter the file name : ";
+   
+    cout << "Please enter the file name : ";
     cin >> name;
     myFile.open(name,ios::in);
     
     while(!myFile.eof() && !myFile.fail()){
-        myFile.get(text);
-        inside.push_back(toupper(text));
+        myFile.get(text0);
+        inside.push_back(toupper(text0));
     }
     myFile.close();
     myFile.open(name,ios::out);
@@ -211,18 +207,13 @@ void TurnToUpper(){
 
 void TurnToLower(){
 
-    char name[100], text;
-
-    fstream myFile;
-    vector<char> inside;
-    
-    cout << "Enter the file name : ";
+    cout << "Please enter the file name : ";
     cin >> name;
     myFile.open(name,ios::in);
     
     while(!myFile.eof() && !myFile.fail()){
-        myFile.get(text);
-        inside.push_back(tolower(text));
+        myFile.get(text0);
+        inside.push_back(tolower(text0));
     }
     myFile.close();
     myFile.open(name,ios::out);
