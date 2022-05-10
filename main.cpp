@@ -171,8 +171,14 @@ void countWords(){
     cout << "The number of words in the file = " << counter  << endl;
 }
 void mergeFile(){
+    myFile2.close();
+    myFile.close();
+    myFile.open(name , ios::app);
+    myFile2.open(name2 ,  fstream::in | fstream::out );
+    myFile << "\n";
     while(!myFile2.eof()) {
         myFile2 >> text2;
+        myFile << " ";
         myFile << text2;
     }
     myFile.close();
