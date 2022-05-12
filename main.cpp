@@ -35,7 +35,7 @@ vector<string> lines;
 vector<string> lines2;
 vector<string> wordvector;
 vector<char> inside;
-char text[100] , text2[100], name[100], text0;
+char text[100] , text2[100], name[100], name2[100], text0;
 string readWord, userWord, targetFileName;
 
 
