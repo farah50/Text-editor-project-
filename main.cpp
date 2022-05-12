@@ -187,28 +187,37 @@ void mergeFile(){
 }
 void searchForWord(){
 
-    string word ;
+   string word ;
     cout << "Please enter the word you want to search for. \n";
     cin >> word;
     int i = 0;
     while(i < word.size()){
         word[i] = tolower(word[i]);
-                i ++;
+        i ++;
     }
-    i = 0;
-    while (i < string( text).size()) {
-        text[i] = tolower(text[i]);
-        i++;
+   myFile.close();
+   myFile.open(name , fstream::in | fstream::out);
+    while (!myFile.eof()){
+        myFile.getline(text , 100 , '\n');
+        lines.push_back(string(text));
     }
-    while(true){
-        if(string(text).find( word) != 0){
+    for(int i = 0 ; i < lines.size(); i ++) {
+        for (int j = 0; j < lines[i].size(); j++) {
+            lines[i][j] = tolower(lines[i][j]);
+        }
+    }
+    bool k = true;
+    for(int i = 0 ; i < lines.size(); i ++) {
+        if (lines[i].find(word) != string::npos) {
             cout << "Word was found in the file. \n";
+            k = false;
             break;
         }
-        else
-            cout << "Word was not found in the file. \n";
     }
 
+    if(k){
+        cout << "Word was not found in the file. \n";
+    }
 }
 
 void TurnToUpper(){
