@@ -266,7 +266,7 @@ void TurnToLower(){
     if(myFile){
         while(myFile.get(text0)){
             
-            inside.push_back(toupper(text0));
+            inside.push_back(tolower(text0));
         
         for(int i=0 ; i<inside.size()-1 ; ++i){
             targetFile.put(inside[i]);
@@ -274,7 +274,7 @@ void TurnToLower(){
        }
         myFile.close();
         targetFile.close();
-        cout << "The file turned to uppercase successfully\n";
+        cout << "The file turned to lowercase successfully\n";
     }
     else{
         cout << " Can't open file.";
