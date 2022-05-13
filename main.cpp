@@ -288,7 +288,6 @@ void TurnToLower(){
     cout << "\nThe file turned to lowercase successfully." << endl;
 }
 
-
 void FreqWord(){
   
   cout << "Please enter the file name : ";
@@ -299,6 +298,11 @@ void FreqWord(){
 while(myFile >> readWord){    
 
    wordvector.push_back(readWord);
+    for(int i = 0 ; i < wordvector.size(); i ++) {
+        for (int j = 0; j < wordvector[i].size(); j++) {
+            wordvector[i][j] = tolower(wordvector[i][j]);
+        }
+    }
 }
 
 while(true){
@@ -309,11 +313,10 @@ while(true){
    cin >> userWord;
 
    for(int i = 0; i < wordvector.size(); i++){
-
+    userWord[i] = tolower(userWord[i]);
     if( userWord == wordvector[i]){
         counter++;
-    }
-        
+    }  
    }
    cout <<"The word " << userWord << " was found: " << counter << " times" << endl;
    break; 
