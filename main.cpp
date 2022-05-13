@@ -24,6 +24,9 @@ void TurnToUpper();
 void TurnToLower();
 void FreqWord();
 void firstUpper();
+void add_text();
+void display_content();
+void empty_file();
 
 
 
@@ -366,4 +369,60 @@ void firstUpper(){
     cout << "\nFile conversion successfully." << endl;
 
 }
+void add_text (){
+    string name_file;
+    cout<<"enter the name of file you want to add to :";
+    cin>>name_file;
+
+
+    fstream myFile(name_file.c_str(), ios::app);
+
+    string line;
+
+    cout<<"enter the message you want to add:";
+    cin.get();
+    getline(cin , line);
+
+        if (!cin.eof()) {
+            myFile << line << '\n';
+        }
+
+
+
+    myFile.close();
+
+    cin.clear();
+}
+void display_content() {
+    string name_file;
+    cout<<"enter the name of file you want to display:";
+    cin>>name_file;
+
+    fstream myFile(name_file.c_str(), ios::in);
+
+    char str[10000];
+
+
+
+    while (myFile.getline(str, 10000)) {
+        cout << str << endl;
+    }
+
+
+
+    myFile.close();
+
+}
+
+void empty_file() {
+    string name_file;
+    cout<<"enter the name of file you want to empty:";
+    cin>>name_file;
+
+    fstream myFile(name_file.c_str(), ios::out);
+
+    myFile.close();
+
+}
+
 
