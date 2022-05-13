@@ -36,7 +36,7 @@ vector<string> lines2;
 vector<string> wordvector;
 vector<char> inside;
 char text[100] , text2[100], name[100], name2[100], text0;
-string readWord, userWord, targetFileName;
+string readWord, userWord, targetFileName, word;
 
 
 int main(){
@@ -186,8 +186,7 @@ void mergeFile(){
         cout << "The files merged successfully.\n" ;
 }
 void searchForWord(){
-
-   string word ;
+    
     cout << "Please enter the word you want to search for. \n";
     cin >> word;
     int i = 0;
@@ -219,68 +218,76 @@ void searchForWord(){
         cout << "Word was not found in the file. \n";
     }
 }
-
 void TurnToUpper(){
+          
+    bool newSentence = true;
 
-   
-    cout << "Please enter the file name : ";
+    cout << "Please enter input file name: " ;
     cin >> name;
 
-    cout << "Please enter the target file name: ";
-    cin >> targetFileName;
+    cout << "Please enter the target file name: " ;
+    cin >> targetFileName;   
 
-    myFile.open(name,ios::in);
-    targetFile.open(targetFileName, ios::out);
+    targetFile.open(targetFileName, ios::out);  
+    myFile.open(name, ios::in);
 
-    if(myFile){
-        while(myFile.get(text0)){
-            
-            inside.push_back(toupper(text0));
-        
-        for(int i=0 ; i<inside.size()-1 ; ++i){
-            targetFile.put(inside[i]);
+    if (myFile) {
+        while (myFile.get(text0)) {
+            if (text0 == ' ') {
+                newSentence = true;
+            }
+            if (isalpha(text0)) {
+                if (newSentence) {
+                    text0 = toupper(text0);
+                }
+            }
+            targetFile.put(text0);  
         }
-    }
         myFile.close();
-        targetFile.close();
-        cout << "The file turned to uppercase successfully\n";
+        targetFile.close();   
     }
-    else{
-        cout << " Can't open file.";
-    }
+    else {
+        cout << "Can't open file, please try again." << endl;
+}
+    cout << "\nThe file turned to uppercase successfully." << endl;
 
 }
 
 
 void TurnToLower(){
+          
+    bool newSentence = true;
 
-    cout << "Please enter the file name : ";
+    cout << "Please enter input file name: " ;
     cin >> name;
 
-    cout << "Please enter the target file name: ";
-    cin >> targetFileName;
+    cout << "Please enter the target file name: " ;
+    cin >> targetFileName;   
 
-    myFile.open(name,ios::in);
-    targetFile.open(targetFileName, ios::out);
+    targetFile.open(targetFileName, ios::out);  
+    myFile.open(name, ios::in);
 
-    if(myFile){
-        while(myFile.get(text0)){
-            
-            inside.push_back(tolower(text0));
-        
-        for(int i=0 ; i<inside.size()-1 ; ++i){
-            targetFile.put(inside[i]);
+    if (myFile) {
+        while (myFile.get(text0)) {
+            if (text0 == ' ') {       // To check if there is a distance or not
+                newSentence = true;
             }
-       }
+            if (isalpha(text0)) {
+                if (newSentence) {
+                    text0 = tolower(text0);   
+                }
+            }
+            targetFile.put(text0);  
+        }
         myFile.close();
-        targetFile.close();
-        cout << "The file turned to lowercase successfully\n";
+        targetFile.close();   
     }
-    else{
-        cout << " Can't open file.";
-    }
-
+    else {
+        cout << "Can't open file, please try again." << endl;
 }
+    cout << "\nThe file turned to lowercase successfully." << endl;
+}
+
 
 void FreqWord(){
   
@@ -346,7 +353,7 @@ void firstUpper(){
         targetFile.close();   
     }
     else {
-        cout << "Cannot open file(s)." << endl;
+        cout << "Can't open file, please try again." << endl;
 }
 
     cout << "\nFile conversion successfully." << endl;
