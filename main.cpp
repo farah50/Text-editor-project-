@@ -51,7 +51,14 @@ int main(){
 
         switch (choice){
             case 1 :
+                void add_text();
                 break;
+             case 2 :
+                void display_content();
+                break;
+            case 3 :
+                void empty_file();
+                break;   
             case 6 :
                 loadFile(lines, myFile);
                 loadFile2(lines2, myFile2);
