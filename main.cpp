@@ -86,13 +86,16 @@ int main(){
             case 15:
                 myFile.close();
             case 16 :
+                cout<< "Good bye ^-^"
                 x = false;
         }
     }
 }
 int menuDisplay() {
 
-    cout << "\n Please choose one option of the following: \n"
+    cout << " +----------------------------------------------------------+\n"
+            " +     Welcome, Please choose one option of the following   +\n"
+            " +----------------------------------------------------------+\n"
             "1. Add new text to the end of the file \n"
             "2. Display the content of the file\n"
             "3. Empty the file\n"
@@ -218,11 +221,12 @@ void searchForWord(){
         cout << "Word was not found in the file. \n";
     }
 }
+
 void TurnToUpper(){
           
     bool newSentence = true;
 
-    cout << "Please enter input file name: " ;
+    cout << "Please enter the file name: " ;
     cin >> name;
 
     cout << "Please enter the target file name: " ;
@@ -258,7 +262,7 @@ void TurnToLower(){
           
     bool newSentence = true;
 
-    cout << "Please enter input file name: " ;
+    cout << "Please enter the file name: " ;
     cin >> name;
 
     cout << "Please enter the target file name: " ;
