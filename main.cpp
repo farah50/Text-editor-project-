@@ -26,7 +26,9 @@ void FreqWord();
 void firstUpper();
 void add_text();
 void display_content();
-void empty_file();
+void empty_file(string& name_file);
+void encryption();
+void decryption();
 
 
 
@@ -51,13 +53,21 @@ int main(){
 
         switch (choice){
             case 1 :
-                void add_text();
+                add_text();
                 break;
-             case 2 :
-                void display_content();
+            case 2:
+                display_ontent();
                 break;
-            case 3 :
-                void empty_file();
+            case 3:
+                cout<<"enter the name of file you want to empty:";
+                cin>> name_file;
+                empty_file(name_file);
+                break;
+            case 4 :
+                encryption();
+                break;
+            case 5 :
+                decryption();
                 break;   
             case 6 :
                 loadFile(lines, myFile);
@@ -421,15 +431,74 @@ void display_content() {
 
 }
 
-void empty_file() {
-    string name_file;
-    cout<<"enter the name of file you want to empty:";
-    cin>>name_file;
+void empty_file(string& name_file) {
+
 
     fstream myFile(name_file.c_str(), ios::out);
 
     myFile.close();
 
+}
+
+void encryption() {
+    cout<<"enter the name of file you want to encrypt. \n";
+    cin >> name_file;
+    fstream myFile(name_file, ios::in );
+    string file_content = "";
+    string encrypt="";
+    char line[1000];
+
+    while (myFile.getline(line, 1000, '\n')) {
+        file_content += line ;
+        file_content += '\n';
+    }
+    myFile.close();
+    myFile.open(name_file,  ios::out);
+    char c;
+    for (int i = 0 ; i < file_content.size(); i++){
+        if(file_content[i] == '\n'){
+             c = '\n';
+            encrypt +=c;
+
+        }
+        else{
+            c = file_content[i] + 1;
+            encrypt +=c;
+        }
+    }
+    myFile << encrypt;
+    myFile.close();
+}
+void decryption(){
+    string name_file;
+    cout<<"enter the name of file you want to decrypt\n";
+    cin >> name_file;
+    fstream myFile(name_file, ios::in );
+    string file_content = "";
+    string decrypt="";
+    char line[1000];
+
+    while (myFile.getline(line, 1000, '\n')) {
+        file_content += line ;
+        file_content += '\n';
+    }
+    myFile.close();
+    myFile.open(name_file,  ios::out);
+
+    char c;
+    for (int i = 0 ; i < file_content.size(); i++){
+        if(file_content[i] == '\n'){
+            c = '\n';
+            decrypt += c;
+
+        }
+        else{
+            c = file_content[i] - 1;
+            decrypt += c;
+        }
+    }
+    myFile << decrypt;
+    myFile.close();
 }
 
 
