@@ -260,6 +260,10 @@ void firstUpper(){
     myFile.open(name, ios::in);
 
     if (myFile) {
+         myFile.get(text0);
+        text0 = toupper(text0);
+        targetFile.put(text0);
+        
         while (myFile.get(text0)) {
             if (text0 == ' ') {        // To check if there is a space or not
                 newSentence = true;
